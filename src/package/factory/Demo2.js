@@ -55,7 +55,7 @@ VehicleFactory.Car.prototype = {
  * 公共汽车抽象类
  */
 VehicleFactory.Bus = function() {
-  this.type = 'car'
+  this.type = 'bus'
 }
 VehicleFactory.Bus.prototype = {
   getPrice: function() {
@@ -70,7 +70,7 @@ VehicleFactory.Bus.prototype = {
  * 货车抽象类
  */
 VehicleFactory.Truck = function() {
-  this.type = 'car'
+  this.type = 'truck'
 }
 VehicleFactory.Truck.prototype = {
   getPrice: function() {
@@ -80,3 +80,20 @@ VehicleFactory.Truck.prototype = {
     return new Error('抽象方法不能被调用')
   }
 }
+
+let BMW = function (price, speed) {
+  this.price = price;
+  this.speed = speed;
+}
+VehicleFactory(BMW, /** VehicleFactory['Car'] */ 'Car'); // 继承呗就
+let bmw = new BMW('50', '360');
+BMW.prototype.getPrice = function() {
+  console.log(this.type + '车价格为' + this.price + '万')
+}
+
+bmw.getPrice() // car车价格为50万
+console.log(bmw.getSpeed()) // 如果没有重写方法，则会给出一些提示 Error: 抽象方法不能被调用
+BMW.prototype.getSpeed = function() {
+  console.log(this.type + '车速度为' + this.speed + 'km/h')
+}
+bmw.getSpeed() // car车速度为360km/h
